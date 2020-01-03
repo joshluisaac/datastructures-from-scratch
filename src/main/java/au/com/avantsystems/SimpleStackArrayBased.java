@@ -2,13 +2,13 @@ package au.com.avantsystems;
 
 import java.lang.reflect.Array;
 
-public class SimpleArrayBasedStack<T> implements Stack<T> {
+public class SimpleStackArrayBased<T> implements Stack<T> {
 
   private T[] contents;
   private int stackPointer;
 
   @SuppressWarnings("unchecked")
-  public SimpleArrayBasedStack(Class<T> tClass, int capacity) {
+  public SimpleStackArrayBased(Class<T> tClass, int capacity) {
     contents = (T[]) Array.newInstance(tClass, capacity);
   }
 
@@ -42,7 +42,7 @@ public class SimpleArrayBasedStack<T> implements Stack<T> {
   }
 
   public static void main(String[] args) {
-    Stack<String> stack = new SimpleArrayBasedStack<>(String.class, 100);
+    Stack<String> stack = new SimpleStackArrayBased<>(String.class, 100);
     stack.push("100");
     stack.push("200");
     stack.push("300");
