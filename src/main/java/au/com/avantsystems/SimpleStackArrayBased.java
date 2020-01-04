@@ -40,19 +40,4 @@ public class SimpleStackArrayBased<T> implements Stack<T> {
       throw new IllegalArgumentException("Cannot pop from empty stack.");
     }
   }
-
-  public static void main(String[] args) {
-    Stack<String> stack = new SimpleStackArrayBased<>(String.class, 100);
-    stack.push("100");
-    stack.push("200");
-    stack.push("300");
-    stack.push("400");
-    System.out.println(stack.size());
-
-    stack.pop();
-    stack.pop();
-    stack.pop();
-    stack.pop();
-    // stack.pop();
-  }
 }
