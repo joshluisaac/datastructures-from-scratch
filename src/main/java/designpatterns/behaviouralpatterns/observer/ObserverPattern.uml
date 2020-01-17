@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="0.0" y="315.0">au.com.avantsystems.behaviouralpatterns.observer.MacObserver</node>
+    <node x="390.0" y="495.0">au.com.avantsystems.behaviouralpatterns.observer.ObserverRunner</node>
+    <node x="260.0" y="315.0">au.com.avantsystems.behaviouralpatterns.observer.LinuxObserver</node>
+    <node x="0.0" y="495.0">au.com.avantsystems.behaviouralpatterns.observer.SubjectModel</node>
+    <node x="278.0" y="157.0">au.com.avantsystems.behaviouralpatterns.observer.AbstractObserver</node>
+    <node x="260.0" y="0.0">au.com.avantsystems.behaviouralpatterns.observer.Observer</node>
+    <node x="520.0" y="315.0">au.com.avantsystems.behaviouralpatterns.observer.WindowsObserver</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="au.com.avantsystems.behaviouralpatterns.observer.MacObserver" target="au.com.avantsystems.behaviouralpatterns.observer.AbstractObserver">
+      <point x="0.0" y="-67.5" />
+      <point x="120.0" y="290.0" />
+      <point x="312.0" y="290.0" />
+      <point x="-68.0" y="54.0" />
+    </edge>
+    <edge source="au.com.avantsystems.behaviouralpatterns.observer.AbstractObserver" target="au.com.avantsystems.behaviouralpatterns.observer.Observer">
+      <point x="0.0" y="-54.0" />
+      <point x="0.0" y="53.5" />
+    </edge>
+    <edge source="au.com.avantsystems.behaviouralpatterns.observer.WindowsObserver" target="au.com.avantsystems.behaviouralpatterns.observer.AbstractObserver">
+      <point x="0.0" y="-67.5" />
+      <point x="640.0" y="290.0" />
+      <point x="448.0" y="290.0" />
+      <point x="68.0" y="54.0" />
+    </edge>
+    <edge source="au.com.avantsystems.behaviouralpatterns.observer.LinuxObserver" target="au.com.avantsystems.behaviouralpatterns.observer.AbstractObserver">
+      <point x="0.0" y="-67.5" />
+      <point x="0.0" y="54.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="708.5" y="327.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

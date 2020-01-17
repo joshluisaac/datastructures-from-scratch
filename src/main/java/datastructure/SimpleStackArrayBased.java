@@ -1,4 +1,4 @@
-package au.com.avantsystems;
+package datastructure;
 
 import java.lang.reflect.Array;
 

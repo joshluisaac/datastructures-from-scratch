@@ -1,4 +1,4 @@
-package au.com.avantsystems;
+package datastructure;
 
 public interface Stack<T> {
 
