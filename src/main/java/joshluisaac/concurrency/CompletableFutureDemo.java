@@ -14,28 +14,29 @@ import lombok.Value;
 
 public class CompletableFutureDemo {
 
-  public static void printThreadInfo(Thread thread) {
-    System.out.println(thread.currentThread().getName() + " thread");
+  public static void printThreadInfo(String methodName, Thread thread) {
+    System.out.println(methodName + "[" + thread.currentThread().getName() + " thread]");
   }
 
   public static void main(String[] args) throws Exception {
     OrderService orderService = new OrderService();
     Map<Integer, Order> orders = OrderData.getOrders();
-    printThreadInfo(Thread.currentThread());
-    ExecutorService executorService = Executors.newFixedThreadPool(4);
+    printThreadInfo("main", Thread.currentThread());
+    ExecutorService executorService = Executors.newFixedThreadPool(5);
     List<Future<Order>> futureOrders = new ArrayList<>();
-    IntStream.range(0, 1)
+    IntStream.range(0, 100)
         .forEach(
             entry -> {
               Future<Order> orderFuture =
                   CompletableFuture.supplyAsync(
                           () -> orderService.createOrder(entry), executorService)
-                      .thenApplyAsync(orderService::verifyOrder, executorService)
+                      .thenApplyAsync(row -> orderService.verifyOrder(row, entry), executorService)
+                      // uses a forkJoinPool as default executor if executor isn't specified
+                      .thenApplyAsync(row -> orderService.enrichOrder(row, entry))
+                      .thenApplyAsync(row -> orderService.updateOrder(row, entry), executorService)
                       .thenApplyAsync(
-                          (orderService
-                              ::enrichOrder)) // uses a forkJoinPool as default executorService
-                      .thenApplyAsync(orderService::updateOrder, executorService)
-                      .thenApplyAsync(orderService::dispatchOrder, executorService);
+                          row -> orderService.dispatchOrder(row, entry), executorService);
+
               if (entry == 0) {
                 futureOrders.add(orderFuture);
               }
@@ -76,6 +77,7 @@ class OrderData {
 class OrderService {
 
   Order createOrder(int i) {
+    CompletableFutureDemo.printThreadInfo("row" + i + " createOrder", Thread.currentThread());
     return Order.builder()
         .customerName("A0" + i)
         .orderStatus("NEW")
@@ -84,32 +86,29 @@ class OrderService {
   }
 
   Order getOrder(Integer orderId) {
-    CompletableFutureDemo.printThreadInfo(Thread.currentThread());
+    CompletableFutureDemo.printThreadInfo("getOrder", Thread.currentThread());
     return OrderData.getOrders().get(orderId);
   }
 
-  Order verifyOrder(Order order) {
-
-    CompletableFutureDemo.printThreadInfo(Thread.currentThread());
+  Order verifyOrder(Order order, int entry) {
+    CompletableFutureDemo.printThreadInfo("row" + entry + " verifyOrder", Thread.currentThread());
     return order;
   }
 
-  Order enrichOrder(Order order) {
-    CompletableFutureDemo.printThreadInfo(Thread.currentThread());
-
+  Order enrichOrder(Order order, int entry) {
+    CompletableFutureDemo.printThreadInfo("row" + entry + " enrichOrder", Thread.currentThread());
     return order;
   }
 
-  Order updateOrder(Order order) {
-    CompletableFutureDemo.printThreadInfo(Thread.currentThread());
+  Order updateOrder(Order order, int entry) {
+    CompletableFutureDemo.printThreadInfo("row" + entry + " updateOrder", Thread.currentThread());
     return order;
   }
 
   @SneakyThrows
-  Order dispatchOrder(Order order) {
-    CompletableFutureDemo.printThreadInfo(Thread.currentThread());
-    System.out.println("Running dispatchOrder: " + Thread.currentThread().getName());
-    Thread.sleep(5000);
+  Order dispatchOrder(Order order, int entry) {
+    CompletableFutureDemo.printThreadInfo("row" + entry + " dispatchOrder", Thread.currentThread());
+    // Thread.sleep(5000);
     return Order.builder()
         .orderDate(order.getOrderDate())
         .customerName("DISPATCHED: " + order.getCustomerName())
