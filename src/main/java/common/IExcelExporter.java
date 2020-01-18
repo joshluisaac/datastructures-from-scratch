@@ -7,8 +7,7 @@ import java.util.Collection;
 
 public interface IExcelExporter<T> {
 
-  void export(Collection<T> data, OutputStream outputStream, String sheetName)
-      throws IOException;
+  void export(Collection<T> data, OutputStream outputStream, String sheetName) throws IOException;
 
   InputStream export(Collection<T> data, String sheetName) throws IOException;
 }

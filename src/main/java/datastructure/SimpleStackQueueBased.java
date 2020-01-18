@@ -39,6 +39,4 @@ public class SimpleStackQueueBased<T> implements Stack<T> {
   public int size() {
     return contents.size();
   }
-
-
 }

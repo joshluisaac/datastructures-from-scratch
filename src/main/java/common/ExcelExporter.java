@@ -1,6 +1,5 @@
 package common;
 
-
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Field;
@@ -11,10 +10,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import lombok.SneakyThrows;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
-import lombok.SneakyThrows;
 
 public class ExcelExporter<T> implements IExcelExporter<T> {
 
@@ -59,16 +57,16 @@ public class ExcelExporter<T> implements IExcelExporter<T> {
     }
   }
 
-  //@SneakyThrows
+  // @SneakyThrows
   private void fillCell(T t) throws IllegalAccessException {
     Field[] declaredFields = t.getClass().getDeclaredFields();
     Arrays.stream(declaredFields)
         .forEach(
             field -> {
               String fieldName = field.getName();
-                System.out.println(fieldName);
-                System.out.println(field.getType());
-                //System.out.println(field.get(t));
+              System.out.println(fieldName);
+              System.out.println(field.getType());
+              // System.out.println(field.get(t));
               // String methodName = BeanUtils.getm
 
             });
@@ -76,26 +74,23 @@ public class ExcelExporter<T> implements IExcelExporter<T> {
 
   public XlsField addField(String name, String header) {
     XlsField xlsField = new XlsField(name, header);
-    fields.add(xlsField);
+    // fields.add(xlsField);
     return xlsField;
   }
 
+  @Override
+  public InputStream export(Collection<T> data, String sheetName) {
+    return null;
+  }
 
-    @Override
-    public InputStream export(Collection<T> data, String sheetName){
-        return null;
+  private void checkFields() {
+    if (fields.isEmpty()) {
+      throw new IllegalArgumentException(
+          String.format("Fields undefined. %n You haven't specified the field(s) to be exported."));
     }
-
-    private void checkFields() {
-        if (fields.isEmpty()) {
-            throw new IllegalArgumentException(
-                    String.format("Fields undefined. %n You haven't specified the field(s) to be exported."));
-        }
-    }
+  }
 
   private Sheet createSheet(Workbook workbook, String sheetName) {
     return workbook.createSheet(sheetName);
   }
-
-
 }
