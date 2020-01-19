@@ -24,7 +24,7 @@ public class CompletableFutureDemo {
     printThreadInfo("main", Thread.currentThread());
     ExecutorService executorService = Executors.newFixedThreadPool(5);
     List<Future<Order>> futureOrders = new ArrayList<>();
-    IntStream.range(0, 100)
+    IntStream.range(0, 10)
         .forEach(
             entry -> {
               Future<Order> orderFuture =
@@ -35,7 +35,8 @@ public class CompletableFutureDemo {
                       .thenApplyAsync(row -> orderService.enrichOrder(row, entry))
                       .thenApplyAsync(row -> orderService.updateOrder(row, entry), executorService)
                       .thenApplyAsync(
-                          row -> orderService.dispatchOrder(row, entry), executorService);
+                          row -> orderService.dispatchOrder(row, entry), executorService)
+                      .thenApplyAsync(row -> orderService.sendEmail(row, entry), executorService);
 
               if (entry == 0) {
                 futureOrders.add(orderFuture);
@@ -116,7 +117,9 @@ class OrderService {
         .build();
   }
 
-  void sendEmail(Order order) {
-    System.out.println("Running sendEmail");
+  Order sendEmail(Order order, int entry) {
+    String x = order.getCustomerName() + "XXX ";
+    CompletableFutureDemo.printThreadInfo("row" + entry + " sendEmail", Thread.currentThread());
+    return order;
   }
 }
