@@ -23,6 +23,42 @@ public class CompletableFutureDemo {
     Map<Integer, Order> orders = OrderData.getOrders();
     printThreadInfo("main", Thread.currentThread());
     ExecutorService executorService = Executors.newFixedThreadPool(5);
+
+
+    Runnable task1 = () -> {
+      System.out.println("Executing Task1 inside : " + Thread.currentThread().getName());
+      try {
+        TimeUnit.SECONDS.sleep(2);
+      } catch (InterruptedException ex) {
+        throw new IllegalStateException(ex);
+      }
+    };
+
+    Runnable task2 = () -> {
+      System.out.println("Executing Task2 inside : " + Thread.currentThread().getName());
+      try {
+        TimeUnit.SECONDS.sleep(4);
+      } catch (InterruptedException ex) {
+        throw new IllegalStateException(ex);
+      }
+    };
+
+    Runnable task3 = () -> {
+      System.out.println("Executing Task3 inside : " + Thread.currentThread().getName());
+      try {
+        TimeUnit.SECONDS.sleep(3);
+      } catch (InterruptedException ex) {
+        throw new IllegalStateException(ex);
+      }
+    };
+
+
+    executorService.submit(task1);
+    executorService.submit(task2);
+    executorService.submit(task3);
+
+
+
     List<Future<Order>> futureOrders = new ArrayList<>();
     IntStream.range(0, 10)
         .forEach(
