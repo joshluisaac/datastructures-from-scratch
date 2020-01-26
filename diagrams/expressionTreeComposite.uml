@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="240.0" y="311.0">com.example.expressiontree.ExpressionTree</node>
+    <node x="500.75" y="158.0">com.example.expressiontree.CompositeNegateNode</node>
+    <node x="299.75" y="158.0">com.example.expressiontree.CompositeBinaryNode</node>
+    <node x="421.25" y="0.0">com.example.expressiontree.ComponentNode</node>
+    <node x="0.0" y="237.0">com.example.expressiontree.CompositeSubtractNode</node>
+    <node x="395.0" y="237.0">com.example.expressiontree.CompositeDivideNode</node>
+    <node x="215.0" y="237.0">com.example.expressiontree.CompositeAddNode</node>
+    <node x="596.0" y="237.0">com.example.expressiontree.CompositeMultiplyNode</node>
+    <node x="403.75" y="79.0">com.example.expressiontree.CompositeUnaryNode</node>
+    <node x="0.0" y="311.0">com.example.expressiontree.ExpressionTreeFactory</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.example.expressiontree.CompositeDivideNode" target="com.example.expressiontree.CompositeBinaryNode">
+      <point x="0.0" y="-14.5" />
+      <point x="485.5" y="217.0" />
+      <point x="412.875" y="217.0" />
+      <point x="22.625" y="14.5" />
+    </edge>
+    <edge source="com.example.expressiontree.CompositeMultiplyNode" target="com.example.expressiontree.CompositeBinaryNode">
+      <point x="0.0" y="-14.5" />
+      <point x="693.5" y="207.0" />
+      <point x="458.125" y="207.0" />
+      <point x="67.875" y="14.5" />
+    </edge>
+    <edge source="com.example.expressiontree.CompositeBinaryNode" target="com.example.expressiontree.CompositeUnaryNode">
+      <point x="0.0" y="-14.5" />
+      <point x="390.25" y="133.0" />
+      <point x="447.25" y="133.0" />
+      <point x="-43.5" y="14.5" />
+    </edge>
+    <edge source="com.example.expressiontree.CompositeNegateNode" target="com.example.expressiontree.CompositeUnaryNode">
+      <point x="0.0" y="-14.5" />
+      <point x="591.25" y="133.0" />
+      <point x="534.25" y="133.0" />
+      <point x="43.5" y="14.5" />
+    </edge>
+    <edge source="com.example.expressiontree.CompositeUnaryNode" target="com.example.expressiontree.ComponentNode">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.example.expressiontree.CompositeAddNode" target="com.example.expressiontree.CompositeBinaryNode">
+      <point x="0.0" y="-14.5" />
+      <point x="295.0" y="217.0" />
+      <point x="367.625" y="217.0" />
+      <point x="-22.625" y="14.5" />
+    </edge>
+    <edge source="com.example.expressiontree.CompositeSubtractNode" target="com.example.expressiontree.CompositeBinaryNode">
+      <point x="0.0" y="-14.5" />
+      <point x="97.5" y="207.0" />
+      <point x="322.375" y="207.0" />
+      <point x="-67.875" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="473.5" y="111.5" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
