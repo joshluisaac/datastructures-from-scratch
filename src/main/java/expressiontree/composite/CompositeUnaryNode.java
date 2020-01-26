@@ -1,6 +1,5 @@
 package expressiontree.composite;
 
-
 /**
  * @class CompositeUnaryNode
  * @brief Defines a right child (but not a left one) and thus is useful for unary operations. It

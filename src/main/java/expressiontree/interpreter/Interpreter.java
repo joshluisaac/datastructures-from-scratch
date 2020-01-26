@@ -1,12 +1,7 @@
-package expressiontree;
+package expressiontree.interpreter;
 
-import expressiontree.composite.*;
 import expressiontree.expressiontree.ExpressionTree;
 import expressiontree.expressiontree.ExpressionTreeFactory;
-import expressiontree.platform.Platform;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map.Entry;
 import java.util.Stack;
 
 /**
@@ -45,46 +40,6 @@ public class Interpreter {
   /** Factory that makes an expression tree. */
   private ExpressionTreeFactory expressionTreeFactory;
 
-  /**
-   * @class SymbolTable
-   * @brief This class stores variables and their values for use by the Interpreter. It plays the
-   *     role of the "Context" in the Interpreter pattern.
-   */
-  public class SymbolTable {
-    /** Hash table containing variable names and values. */
-    private HashMap<String, Integer> map = new HashMap<String, Integer>();
-
-    /** Ctor */
-    public SymbolTable() {}
-
-    public int get(String variable) {
-      /** If variable isn't set then assign it a 0 value. */
-      if (map.get(variable) != null) return map.get(variable);
-      else {
-        map.put(variable, 0);
-        return map.get(variable);
-      }
-    }
-
-    /** Set the value of a variable. */
-    public void set(String variable, int value) {
-      map.put(variable, value);
-    }
-
-    /** Print all variables and their values as an aid for debugging. */
-    public void print() {
-      for (Iterator<Entry<String, Integer>> it = map.entrySet().iterator(); it.hasNext(); ) {
-        Entry<String, Integer> x = it.next();
-        Platform.instance().outputLine((x.getKey() + " = " + x.getValue()));
-      }
-    }
-
-    /** Clear all variables and their values. */
-    public void reset() {
-      map.clear();
-    }
-  }
-
   /** Stores variables and their values for use by the Interpreter. */
   private SymbolTable symbolTable = new SymbolTable();
 
@@ -107,7 +62,7 @@ public class Interpreter {
    * This method first converts a string into a parse tree and then build an expression tree out of
    * the parse tree. It's implemented using the Template Method pattern.
    */
-  ExpressionTree interpret(String inputExpression) {
+  public ExpressionTree interpret(String inputExpression) {
     /** The parseTree is implemented as a Stack. */
     Stack<Symbol> parseTree = buildParseTree(inputExpression);
 
@@ -185,7 +140,7 @@ public class Interpreter {
     } else if (inputExpression.charAt(index) == '+') {
       handled = true;
       /** Addition operation. */
-      Add op = new Add();
+      Add op = new Add(addSubPrecedence);
       op.addPrecedence(accumulatedPrecedence);
 
       lastValidInput = null;
@@ -201,11 +156,11 @@ public class Interpreter {
 
       if (lastValidInput == null) {
         /** Negate. */
-        op = new Negate();
+        op = new Negate(negatePrecedence);
         op.addPrecedence(accumulatedPrecedence);
       } else {
         /** Subtract. */
-        op = new Subtract();
+        op = new Subtract(addSubPrecedence);
         op.addPrecedence(accumulatedPrecedence);
       }
 
@@ -216,7 +171,7 @@ public class Interpreter {
     } else if (inputExpression.charAt(index) == '*') {
       handled = true;
       /** Multiplication operation. */
-      Multiply op = new Multiply();
+      Multiply op = new Multiply(mulDivPrecedence);
       op.addPrecedence(accumulatedPrecedence);
 
       lastValidInput = null;
@@ -266,10 +221,13 @@ public class Interpreter {
 
     Number number;
 
-    if (isVariable)
+    String inputSubString = input.substring(startIndex, startIndex + endIndex);
+    if (isVariable) {
       /** Lookup the value in the symbolTable. */
-      number = new Number(symbolTable.get(input.substring(startIndex, startIndex + endIndex)));
-    else number = new Number(input.substring(startIndex, startIndex + endIndex));
+      number = new Number(symbolTable.get(inputSubString), numberPrecedence);
+    } else {
+      number = new Number(inputSubString, numberPrecedence);
+    }
 
     number.addPrecedence(accumulatedPrecedence);
 
@@ -311,7 +269,7 @@ public class Interpreter {
          * precedence than the parent. This also means different things for unary ops. The most
          * recent unary op (negate) has a higher precedence.
          */
-        UnaryOperator up = new Negate();
+        UnaryOperator up = new Negate(negatePrecedence);
 
         if (symbol.getClass() == up.getClass()) {
           for (; child != null && child.precedence() == symbol.precedence(); child = child.right)
@@ -371,235 +329,5 @@ public class Interpreter {
     } else if (localParseTree.size() > 0) masterParseTree = localParseTree;
 
     return masterParseTree;
-  }
-
-  /**
-   * @class Symbol
-   * @brief Base class for the various parse tree subclasses.
-   */
-  abstract class Symbol {
-    /**
-     * The following static consts set the precedence levels of the various operations and operands.
-     */
-
-    /** Default precedence. */
-    protected int precedence = 0;
-
-    /** Left symbol. */
-    protected Symbol left;
-
-    /** Right symbol. */
-    protected Symbol right;
-
-    /** Ctor */
-    public Symbol(Symbol left, Symbol right, int precedence) {
-      this.precedence = precedence;
-      this.left = left;
-      this.right = right;
-    }
-
-    /** Method for returning precedence level (higher value means higher precedence. */
-    public int precedence() {
-      return precedence;
-    }
-
-    /** Abstract method for adding precedence. */
-    public abstract int addPrecedence(int accumulatedPrecedence);
-
-    /** Abstract method for building a @a ComponentNode. */
-    abstract ComponentNode build();
-  }
-
-  /**
-   * @class Symbol
-   * @brief Defines a node in the parse tree for number terminal expressions.
-   */
-  class Number extends Symbol {
-    /** Value of Number. */
-    public int item;
-
-    /** Ctor */
-    public Number(String input) {
-      super(null, null, numberPrecedence);
-      item = Integer.parseInt(input);
-    }
-
-    /** Ctor */
-    public Number(int input) {
-      super(null, null, numberPrecedence);
-      item = input;
-    }
-
-    /** Adds numberPrecedence to the current accumulatedPrecedence value. */
-    public int addPrecedence(int accumulatedPrecedence) {
-      return precedence = numberPrecedence + accumulatedPrecedence;
-    }
-
-    /** Method for returning precedence level (higher value means higher precedence). */
-    public int precedence() {
-      return precedence;
-    }
-
-    /** Builds a @a LeadNode. */
-    ComponentNode build() {
-      return new LeafNode(item);
-    }
-  }
-
-  /**
-   * @class Operator
-   * @brief Defines a base class in the parse tree for operator non-terminal expressions.
-   */
-  public abstract class Operator extends Symbol {
-    /** Ctor */
-    Operator(Symbol left, Symbol right, int precedence) {
-      super(left, right, precedence);
-    }
-  }
-
-  /**
-   * @class UnaryOperator
-   * @brief Defines a node in the parse tree for unary operator non-terminal expressions.
-   */
-  public abstract class UnaryOperator extends Symbol {
-    /** Ctor */
-    UnaryOperator(Symbol right, int precedence) {
-      super(null, right, precedence);
-    }
-
-    /** Abstract method for building a @a UnaryOperator node. */
-    abstract ComponentNode build();
-  }
-
-  /**
-   * @class Negate
-   * @brief Defines a node in the parse tree for unary minus operator non-terminal expression.
-   */
-  class Negate extends UnaryOperator {
-    /** Ctor */
-    public Negate() {
-      super(null, negatePrecedence);
-    }
-
-    /** Adds precedence to its current value. */
-    public int addPrecedence(int accumulatedPrecedence) {
-      return precedence = negatePrecedence + accumulatedPrecedence;
-    }
-
-    /** Method for building a @a Negate node. */
-    ComponentNode build() {
-      return new CompositeNegateNode(right.build());
-    }
-
-    /** Returns the current precedence. */
-    public int precedence() {
-      return precedence;
-    }
-  }
-
-  /**
-   * @class Add
-   * @brief Defines a node in the parse tree for the binary add operator non-terminal expression.
-   */
-  class Add extends Operator {
-    /** Ctor */
-    public Add() {
-      super(null, null, addSubPrecedence);
-    }
-
-    /** Adds Precedence to its current value. */
-    public int addPrecedence(int accumulatedPrecedence) {
-      return precedence = addSubPrecedence + accumulatedPrecedence;
-    }
-
-    /** Method for building an @a Add node. */
-    ComponentNode build() {
-      return new CompositeAddNode(left.build(), right.build());
-    }
-
-    /** Returns the current precedence. */
-    public int precedence() {
-      return precedence;
-    }
-  }
-
-  /**
-   * @class Subtract
-   * @brief Defines a node in the parse tree for the binary subtract operator non-terminal
-   *     expression.
-   */
-  class Subtract extends Operator {
-    /** Ctor */
-    public Subtract() {
-      super(null, null, addSubPrecedence);
-    }
-
-    /** Adds precedence to its current value. */
-    public int addPrecedence(int accumulatedPrecedence) {
-      return precedence = addSubPrecedence + accumulatedPrecedence;
-    }
-
-    /** Method for building a @a Subtract node. */
-    ComponentNode build() {
-      return new CompositeSubtractNode(left.build(), right.build());
-    }
-
-    /** Returns the current precedence. */
-    public int precedence() {
-      return precedence;
-    }
-  }
-
-  /**
-   * @class Multiply
-   * @brief Defines a node in the parse tree for the binary multiply operator non-terminal
-   *     expression.
-   */
-  class Multiply extends Operator {
-    /** Ctor */
-    public Multiply() {
-      super(null, null, mulDivPrecedence);
-    }
-
-    /** Adds precedence to its current value. */
-    public int addPrecedence(int accumulatedPrecedence) {
-      return precedence = mulDivPrecedence + accumulatedPrecedence;
-    }
-
-    /** Method for building a @a Multiple node. */
-    ComponentNode build() {
-      return new CompositeMultiplyNode(left.build(), right.build());
-    }
-
-    /** Returns the precedence. */
-    public int precedence() {
-      return precedence;
-    }
-  }
-
-  /**
-   * @class Divide
-   * @brief Defines a node in the parse tree for the binary divide operator non-terminal expression.
-   */
-  class Divide extends Operator {
-    /** Ctor */
-    public Divide() {
-      super(null, null, mulDivPrecedence);
-    }
-
-    /** Returns the current precedence. */
-    public int precedence() {
-      return precedence;
-    }
-
-    /** Adds precedence to its current value. */
-    public int addPrecedence(int accumulatedPrecedence) {
-      return precedence = mulDivPrecedence + accumulatedPrecedence;
-    }
-
-    /** Method for building a @a Divide node. */
-    ComponentNode build() {
-      return new CompositeDivideNode(left.build(), right.build());
-    }
   }
 }

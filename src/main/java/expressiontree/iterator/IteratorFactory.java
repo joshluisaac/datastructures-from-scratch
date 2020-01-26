@@ -3,6 +3,7 @@ package expressiontree.iterator;
 import expressiontree.expressiontree.ExpressionTree;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 /**
  * @class IteratorFactory
@@ -20,7 +21,7 @@ public class IteratorFactory {
    * Map used to validate input requests for @a Iterator implementations and dispatch the execute()
    * method of the requested iterator. .
    */
-  private HashMap<String, IIteratorFactoryCommand> traversalMap =
+  private Map<String, IIteratorFactoryCommand> traversalMap =
       new HashMap<String, IIteratorFactoryCommand>();
 
   /** Ctor */

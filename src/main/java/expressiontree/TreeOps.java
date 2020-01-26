@@ -2,12 +2,13 @@ package expressiontree;
 
 import expressiontree.State.UninitializedState;
 import expressiontree.expressiontree.ExpressionTree;
+import expressiontree.interpreter.Interpreter;
 
 /**
  * @class TreeOps
  * @brief Plays the role of the "Context" in the State pattern that ensures user operations on an
  *     expression tree are invoked according to the correct protocol. Most of its methods delegate
- *     to the corresponding methods in sublcasses of the @a State base class, which then perform the
+ *     to the corresponding methods in subclasses of the @a State base class, which then perform the
  *     requested operations.
  */
 public class TreeOps {

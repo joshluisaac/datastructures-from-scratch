@@ -1,7 +1,5 @@
 package expressiontree;
 
-// import gnu.getopt.Getopt;
-
 import expressiontree.platform.Platform;
 
 /**
