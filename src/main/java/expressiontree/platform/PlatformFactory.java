@@ -1,7 +1,5 @@
 package expressiontree.platform;
 
-import expressiontree.platform.CommandLinePlatform;
-import expressiontree.platform.Platform;
 
 import java.util.HashMap;
 

@@ -1,8 +1,6 @@
 package expressiontree.command;
 
 import expressiontree.TreeOps;
-import expressiontree.command.*;
-
 import java.util.HashMap;
 import java.util.Vector;
 
@@ -121,8 +119,8 @@ public class UserCommandFactory {
       parameters = inputString.substring(spacepos + 1);
       commandRequest = inputString.substring(0, spacepos);
     } else
-    /** There's only a command, but no parameters. */
-    ;
+      /** There's only a command, but no parameters. */
+      ;
 
     /** Try to find the pre-allocated factory command. */
     IUserCommandFactoryCommand command = commandMap.get(commandRequest);

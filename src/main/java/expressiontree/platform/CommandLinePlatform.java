@@ -1,6 +1,5 @@
 package expressiontree.platform;
 
-import expressiontree.platform.Platform;
 
 import java.io.InputStream;
 import java.io.PrintStream;

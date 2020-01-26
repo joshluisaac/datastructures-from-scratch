@@ -1,7 +1,6 @@
 package expressiontree.iterator;
 
 import expressiontree.expressiontree.ExpressionTree;
-
 import java.util.Iterator;
 import java.util.Stack;
 

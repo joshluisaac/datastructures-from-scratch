@@ -1,9 +1,8 @@
 package expressiontree.expressiontree;
 
-import expressiontree.iterator.IteratorFactory;
 import expressiontree.composite.ComponentNode;
+import expressiontree.iterator.IteratorFactory;
 import expressiontree.visitor.Visitor;
-
 import java.util.Iterator;
 
 /**

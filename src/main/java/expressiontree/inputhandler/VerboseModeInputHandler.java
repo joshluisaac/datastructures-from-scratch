@@ -1,7 +1,7 @@
 package expressiontree.inputhandler;
 
-import expressiontree.platform.Platform;
 import expressiontree.command.UserCommand;
+import expressiontree.platform.Platform;
 
 /**
  * @class VerboseModeInputHandler

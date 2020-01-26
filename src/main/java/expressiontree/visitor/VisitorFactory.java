@@ -1,8 +1,5 @@
 package expressiontree.visitor;
 
-import expressiontree.visitor.EvaluationVisitor;
-import expressiontree.visitor.PrintVisitor;
-import expressiontree.visitor.Visitor;
 
 import java.util.HashMap;
 
@@ -67,5 +64,3 @@ public class VisitorFactory {
       throw new IllegalArgumentException(visitorRequest + " is not a supported visitor");
   }
 }
-
-

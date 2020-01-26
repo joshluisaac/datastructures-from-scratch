@@ -1,6 +1,5 @@
 package expressiontree.composite;
 
-import expressiontree.composite.ComponentNode;
 
 /**
  * @class CompositeUnaryNode

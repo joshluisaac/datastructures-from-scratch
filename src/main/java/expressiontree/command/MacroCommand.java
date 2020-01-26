@@ -1,8 +1,6 @@
 package expressiontree.command;
 
 import expressiontree.TreeOps;
-import expressiontree.command.UserCommand;
-
 import java.util.Vector;
 
 /**

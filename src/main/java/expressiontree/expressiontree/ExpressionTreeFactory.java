@@ -1,7 +1,6 @@
 package expressiontree.expressiontree;
 
 import expressiontree.composite.ComponentNode;
-import expressiontree.expressiontree.ExpressionTree;
 
 /**
  * @class ExpressionTreeFactory
@@ -18,5 +17,3 @@ public class ExpressionTreeFactory {
     return new ExpressionTree(componentNodeRoot);
   }
 }
-
-

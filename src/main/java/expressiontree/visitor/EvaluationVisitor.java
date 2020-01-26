@@ -2,7 +2,6 @@ package expressiontree.visitor;
 
 import expressiontree.composite.*;
 import expressiontree.platform.Platform;
-
 import java.util.Stack;
 
 /**

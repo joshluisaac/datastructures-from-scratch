@@ -4,7 +4,6 @@ import expressiontree.composite.*;
 import expressiontree.expressiontree.ExpressionTree;
 import expressiontree.expressiontree.ExpressionTreeFactory;
 import expressiontree.platform.Platform;
-
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;

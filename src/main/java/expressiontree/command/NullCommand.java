@@ -1,7 +1,7 @@
 package expressiontree.command;
 
-import expressiontree.platform.Platform;
 import expressiontree.TreeOps;
+import expressiontree.platform.Platform;
 
 /**
  * @class NullCommand

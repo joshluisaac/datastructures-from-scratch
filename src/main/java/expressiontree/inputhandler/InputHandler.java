@@ -1,12 +1,11 @@
 package expressiontree.inputhandler;
 
-
 import expressiontree.InputDispatcher;
-import expressiontree.platform.Platform;
 import expressiontree.TreeOps;
-import expressiontree.command.UserCommandFactory;
 import expressiontree.command.NullCommand;
 import expressiontree.command.UserCommand;
+import expressiontree.command.UserCommandFactory;
+import expressiontree.platform.Platform;
 
 /**
  * @class InputHandler
@@ -50,7 +49,8 @@ public abstract class InputHandler {
    * Factory that creates the appropriate subclass of @a InputHandler, i.e., @a
    * VerboseModeInputHandler or @a * SuccinctModeInputHandler.
    */
-  public static InputHandler makeHandler(boolean verbose, Object input, Object output, Object activity) {
+  public static InputHandler makeHandler(
+      boolean verbose, Object input, Object output, Object activity) {
     globalInput = input;
     globalOutput = output;
     verboseField = verbose;

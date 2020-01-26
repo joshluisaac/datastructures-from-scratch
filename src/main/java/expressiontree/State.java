@@ -5,7 +5,6 @@ import expressiontree.platform.Platform;
 import expressiontree.visitor.EvaluationVisitor;
 import expressiontree.visitor.Visitor;
 import expressiontree.visitor.VisitorFactory;
-
 import java.util.HashMap;
 import java.util.Iterator;
 

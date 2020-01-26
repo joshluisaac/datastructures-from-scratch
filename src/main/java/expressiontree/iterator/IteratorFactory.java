@@ -1,11 +1,6 @@
 package expressiontree.iterator;
 
 import expressiontree.expressiontree.ExpressionTree;
-import expressiontree.iterator.InOrderIterator;
-import expressiontree.iterator.LevelOrderIterator;
-import expressiontree.iterator.PostOrderIterator;
-import expressiontree.iterator.PreOrderIterator;
-
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -105,5 +100,3 @@ public class IteratorFactory {
           traversalOrderRequest + " is not a supported traversal order");
   }
 }
-
-
