@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="0.0" y="79.0">com.example.expressiontree.SynchronizedExpressionTree</node>
+    <node x="417.0" y="533.0">com.example.expressiontree.PlatformFactory</node>
+    <node x="0.0" y="385.0">com.example.expressiontree.AndroidPlatform</node>
+    <node x="396.0" y="607.0">com.example.expressiontree.VisitorFactory</node>
+    <node x="551.0" y="385.0">com.example.expressiontree.EvaluationVisitor</node>
+    <node x="0.0" y="232.0">com.example.expressiontree.SuccinctModeInputHandler</node>
+    <node x="615.0" y="533.0">com.example.expressiontree.IteratorFactory</node>
+    <node x="0.0" y="459.0">com.example.expressiontree.ExpressionTreeFactory</node>
+    <node x="240.0" y="459.0">com.example.expressiontree.LevelOrderIterator</node>
+    <node x="118.0" y="306.0">com.example.expressiontree.Platform</node>
+    <node x="624.0" y="681.0">com.example.expressiontree.State</node>
+    <node x="399.0" y="385.0">com.example.expressiontree.PrintVisitor</node>
+    <node x="158.25" y="153.0">com.example.expressiontree.InputHandler</node>
+    <node x="340.0" y="681.0">com.example.expressiontree.TreeOps</node>
+    <node x="212.0" y="533.0">com.example.expressiontree.PreOrderIterator</node>
+    <node x="501.25" y="306.0">com.example.expressiontree.Visitor</node>
+    <node x="167.0" y="0.0">com.example.expressiontree.ExpressionTree</node>
+    <node x="0.0" y="533.0">com.example.expressiontree.PostOrderIterator</node>
+    <node x="482.0" y="681.0">com.example.expressiontree.Options</node>
+    <node x="0.0" y="607.0">com.example.expressiontree.InOrderIterator</node>
+    <node x="198.0" y="607.0">com.example.expressiontree.InputDispatcher</node>
+    <node x="587.0" y="607.0">com.example.expressiontree.MainActivity</node>
+    <node x="236.0" y="232.0">com.example.expressiontree.VerboseModeInputHandler</node>
+    <node x="173.0" y="385.0">com.example.expressiontree.CommandLinePlatform</node>
+    <node x="250.0" y="79.0">com.example.expressiontree.InstrumentedExpressionTree</node>
+    <node x="0.0" y="681.0">com.example.expressiontree.Interpreter</node>
+    <node x="459.0" y="459.0">com.example.expressiontree.UserCommandFactory</node>
+    <node x="170.0" y="681.0">com.example.expressiontree.MainConsole</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.example.expressiontree.InstrumentedExpressionTree" target="com.example.expressiontree.ExpressionTree">
+      <point x="0.0" y="-14.5" />
+      <point x="365.0" y="54.0" />
+      <point x="276.5" y="54.0" />
+      <point x="36.5" y="14.5" />
+    </edge>
+    <edge source="com.example.expressiontree.SynchronizedExpressionTree" target="com.example.expressiontree.ExpressionTree">
+      <point x="0.0" y="-14.5" />
+      <point x="115.0" y="54.0" />
+      <point x="203.5" y="54.0" />
+      <point x="-36.5" y="14.5" />
+    </edge>
+    <edge source="com.example.expressiontree.SuccinctModeInputHandler" target="com.example.expressiontree.InputHandler">
+      <point x="0.0" y="-14.5" />
+      <point x="108.0" y="207.0" />
+      <point x="191.25" y="207.0" />
+      <point x="-33.0" y="14.5" />
+    </edge>
+    <edge source="com.example.expressiontree.PrintVisitor" target="com.example.expressiontree.Visitor">
+      <point x="0.0" y="-14.5" />
+      <point x="465.0" y="360.0" />
+      <point x="525.5" y="360.0" />
+      <point x="-24.25" y="14.5" />
+    </edge>
+    <edge source="com.example.expressiontree.AndroidPlatform" target="com.example.expressiontree.Platform">
+      <point x="0.0" y="-14.5" />
+      <point x="76.5" y="360.0" />
+      <point x="144.0" y="360.0" />
+      <point x="-26.0" y="14.5" />
+    </edge>
+    <edge source="com.example.expressiontree.EvaluationVisitor" target="com.example.expressiontree.Visitor">
+      <point x="0.0" y="-14.5" />
+      <point x="634.5" y="360.0" />
+      <point x="574.0" y="360.0" />
+      <point x="24.25" y="14.5" />
+    </edge>
+    <edge source="com.example.expressiontree.VerboseModeInputHandler" target="com.example.expressiontree.InputHandler">
+      <point x="0.0" y="-14.5" />
+      <point x="340.5" y="207.0" />
+      <point x="257.25" y="207.0" />
+      <point x="33.0" y="14.5" />
+    </edge>
+    <edge source="com.example.expressiontree.CommandLinePlatform" target="com.example.expressiontree.Platform">
+      <point x="0.0" y="-14.5" />
+      <point x="263.5" y="360.0" />
+      <point x="196.0" y="360.0" />
+      <point x="26.0" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="899.5" y="320.5" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
