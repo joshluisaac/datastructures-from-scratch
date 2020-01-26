@@ -23,19 +23,19 @@ public class Interpreter {
   private int accumulatedPrecedence;
 
   /** The precedence of the '+' and '-' operators. */
-  static final int addSubPrecedence = 1;
+  private static final int ADD_SUB_PRECEDENCE = 1;
 
   /** The precedence of the '*' and '/' operators. */
-  static final int mulDivPrecedence = 2;
+  private static final int MUL_DIV_PRECEDENCE = 2;
 
   /** The precedence of a '-' (negate) operator. */
-  static final int negatePrecedence = 3;
+  private static final int NEGATE_PRECEDENCE = 3;
 
   /** The precedence of a number. */
-  static final int numberPrecedence = 4;
+  private static final int NUMBER_PRECEDENCE = 4;
 
   /** The precedence of a number. */
-  static final int parenPrecedence = 5;
+  private static final int PAREN_PRECEDENCE = 5;
 
   /** Factory that makes an expression tree. */
   private ExpressionTreeFactory expressionTreeFactory;
@@ -140,7 +140,7 @@ public class Interpreter {
     } else if (inputExpression.charAt(index) == '+') {
       handled = true;
       /** Addition operation. */
-      Add op = new Add(addSubPrecedence);
+      Add op = new Add(ADD_SUB_PRECEDENCE);
       op.addPrecedence(accumulatedPrecedence);
 
       lastValidInput = null;
@@ -156,11 +156,11 @@ public class Interpreter {
 
       if (lastValidInput == null) {
         /** Negate. */
-        op = new Negate(negatePrecedence);
+        op = new Negate(NEGATE_PRECEDENCE);
         op.addPrecedence(accumulatedPrecedence);
       } else {
         /** Subtract. */
-        op = new Subtract(addSubPrecedence);
+        op = new Subtract(ADD_SUB_PRECEDENCE);
         op.addPrecedence(accumulatedPrecedence);
       }
 
@@ -171,7 +171,7 @@ public class Interpreter {
     } else if (inputExpression.charAt(index) == '*') {
       handled = true;
       /** Multiplication operation. */
-      Multiply op = new Multiply(mulDivPrecedence);
+      Multiply op = new Multiply(MUL_DIV_PRECEDENCE);
       op.addPrecedence(accumulatedPrecedence);
 
       lastValidInput = null;
@@ -224,9 +224,9 @@ public class Interpreter {
     String inputSubString = input.substring(startIndex, startIndex + endIndex);
     if (isVariable) {
       /** Lookup the value in the symbolTable. */
-      number = new Number(symbolTable.get(inputSubString), numberPrecedence);
+      number = new Number(symbolTable.get(inputSubString), NUMBER_PRECEDENCE);
     } else {
-      number = new Number(inputSubString, numberPrecedence);
+      number = new Number(inputSubString, NUMBER_PRECEDENCE);
     }
 
     number.addPrecedence(accumulatedPrecedence);
@@ -269,7 +269,7 @@ public class Interpreter {
          * precedence than the parent. This also means different things for unary ops. The most
          * recent unary op (negate) has a higher precedence.
          */
-        UnaryOperator up = new Negate(negatePrecedence);
+        UnaryOperator up = new Negate(NEGATE_PRECEDENCE);
 
         if (symbol.getClass() == up.getClass()) {
           for (; child != null && child.precedence() == symbol.precedence(); child = child.right)
@@ -298,7 +298,7 @@ public class Interpreter {
      * Handling parentheses is a lot like handling the original interpret() call. The difference is
      * that we have to worry about how the calling function has its masterParseTree setup.
      */
-    accumulatedPrecedence += parenPrecedence;
+    accumulatedPrecedence += PAREN_PRECEDENCE;
     Stack<Symbol> localParseTree = new Stack<Symbol>();
 
     handled = false;
@@ -309,7 +309,7 @@ public class Interpreter {
 
       if (inputExpression.charAt(index) == ')') {
         handled = true;
-        accumulatedPrecedence -= parenPrecedence;
+        accumulatedPrecedence -= PAREN_PRECEDENCE;
         break;
       }
     }
